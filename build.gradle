@@ -1,0 +1,29 @@
+buildscript {
+    repositories {
+        maven { url = "https://maven.minecraftforge.net/" }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+    }
+}
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+version = "1.0"
+group = "com.example.playerradar"
+archivesBaseName = "playerradar"
+
+minecraft {
+    version = "1.12.2-14.23.5.2859"
+    runDir = "run"
+    mappings = "stable_39"
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    from(sourceSets.main.resources.dir) {
+        include 'mcmod.info'
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+}
